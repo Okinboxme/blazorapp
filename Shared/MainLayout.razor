@@ -1,15 +1,60 @@
 ﻿@inherits LayoutComponentBase
+@using MatBlazor
 
-<div class="sidebar">
-    <NavMenu />
-</div>
+<MatAppBarContainer>
+    <MatAppBar Fixed="true">
+        <MatAppBarRow>
+            <MatAppBarSection>
+                <MatIcon Icon="menu" @onclick="@((e)=>ButtonClicked())" Style="cursor: pointer;"></MatIcon>
+                <NavLink class="text-white nav-link" href="" Match="NavLinkMatch.All"><MatAppBarTitle>System One Ltd</MatAppBarTitle></NavLink>
+            </MatAppBarSection>
+            <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+                <NavLink class="text-white nav-link" href="" Match="NavLinkMatch.All"> Home</NavLink>
+                <NavLink class="text-white nav-link" href="counter"> Counter</NavLink>
+                <NavLink class="text-white nav-link" href="fetchdata"> fetchdata</NavLink>
 
-<div class="main">
-    <div class="top-row px-4">
-        <a href="https://docs.microsoft.com/en-us/aspnet/" target="_blank">About</a>
-    </div>
+            </MatAppBarSection>
+        </MatAppBarRow>
+    </MatAppBar>
+    <MatAppBarContent>
+        <MatDrawerContainer Style="height:100vh; width:100vw">
+            <MatDrawer Opened="@Openned" Mode="@MatDrawerMode.Modal">
+                @*List Of Drawer*@
+                <MatListGroup>
+                    <MatListGroupSubHeader>Profile</MatListGroupSubHeader>
+                    <MatList>
+                        <MatListItem>
+                            <NavLink href="" @onclick="@((e)=>ButtonClicked())">Home</NavLink>
+                        </MatListItem>
+                        <MatListItem>
+                            <NavLink href="counter" @onclick="@((e)=>ButtonClicked())">Counter</NavLink>
+                        </MatListItem>
+                        <MatListItem>
+                            <NavLink href="fetchdata" @onclick="@((e)=>ButtonClicked())">FetchData</NavLink>
+                        </MatListItem>
 
-    <div class="content px-4">
-        @Body
-    </div>
-</div>
+                    </MatList>
+                </MatListGroup>
+
+
+            </MatDrawer>
+          
+            <MatDrawerContent>
+                <div class="container" style="padding:1em;margin:1em;">
+                    @Body
+                </div>
+            </MatDrawerContent>
+         
+        </MatDrawerContainer>
+    </MatAppBarContent>
+
+</MatAppBarContainer>
+
+
+@functions{
+    bool Openned = false;
+    void ButtonClicked()
+    {
+        Openned = !Openned;
+    }
+}
